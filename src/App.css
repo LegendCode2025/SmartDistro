@@ -1,8 +1,61 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
+}
+
+.color-navbar {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.color-texto-marca {
+  color: #1e3c72 !important;
+}
+
+/* Estilos para el formulario de login */
+.card {
+  border: none;
+  border-radius: 15px;
+  background: white;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.btn-login {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%) !important;
+  border: none !important;
+  padding: 12px !important;
+  font-weight: bold !important;
+  transition: all 0.3s ease !important;
+}
+
+.btn-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+}
+
+.input-group-text {
+  background: #f8f9fa !important;
+  border-right: none !important;
+  color: #1e3c72 !important;
+}
+
+.form-control {
+  border-left: none !important;
+}
+
+.form-control:focus {
+  border-color: #ced4da !important;
+  box-shadow: none !important;
+}
+
+.input-group:focus-within {
+  box-shadow: 0 0 0 0.25rem rgba(30, 60, 114, 0.25);
 }
 
 .logo {
@@ -11,11 +64,9 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em #1e3c72aa);
 }
 
 @keyframes logo-spin {
@@ -33,8 +84,11 @@
   }
 }
 
-.card {
-  padding: 2em;
+/* Ajustes responsive */
+@media (max-width: 576px) {
+  .card {
+    margin: 1rem;
+  }
 }
 
 .read-the-docs {
