@@ -1,0 +1,1 @@
+Sitemap: https://smartdistro.netlify.app/sitemap.xml
