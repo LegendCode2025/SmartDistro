@@ -8,6 +8,7 @@ import logo from "../assets/react.svg";
 import { useAuth } from "../assets/database/authcontext";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import "../App.css";
+import { Link } from "react-router-dom";
 
 const Encabezado = () => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -72,6 +73,27 @@ const Encabezado = () => {
               >
                 <i className="bi bi-house-door-fill me-2"></i>
                 <strong>Inicio</strong>
+              </Nav.Link>
+              <Nav.Link
+                onClick={() => handleNavigate("/productos")}
+                className={isCollapsed ? "color-texto-marca" : "text-white"}
+              >
+                <i className="bi bi-box-seam me-2"></i>
+                <strong>Productos</strong>
+              </Nav.Link>
+              <Nav.Link
+                onClick={() => handleNavigate("/categorias")}
+                className={isCollapsed ? "color-texto-marca" : "text-white"}
+              >
+                <i className="bi bi-tags me-2"></i>
+                <strong>Categorías</strong>
+              </Nav.Link>
+              <Nav.Link
+                onClick={() => handleNavigate("/catalogo")}
+                className={isCollapsed ? "color-texto-marca" : "text-white"}
+              >
+                <i className="bi bi-book me-2"></i>
+                <strong>Catálogo</strong>
               </Nav.Link>
               {isLoggedIn ? (
                 <Nav.Link onClick={handleLogout} className={isCollapsed ? "color-texto-marca" : "text-white"}>
