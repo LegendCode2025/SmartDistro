@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "../src/assets/database/authcontext";
 import ProtectedRoute from "./components/ProtectedRoute"; 
@@ -14,6 +15,7 @@ function App() {
   return (
     <AuthProvider>
       <Router>
+        <div className="App">
           <Encabezado />
           <main className="margen-superior-main">
             <Routes>
@@ -24,6 +26,7 @@ function App() {
               <Route path="/catalogo" element={<ProtectedRoute element={<Catalogo />} />} />
             </Routes>
           </main>
+        </div>
       </Router>
     </AuthProvider>
   )
