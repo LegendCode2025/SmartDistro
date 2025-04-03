@@ -1,0 +1,35 @@
+.targetLogin{
+    background-color: gray;
+
+}
+.TituloSecion{
+    background-color: #1A3557;
+    color: aliceblue;
+    width: 100%;
+    border-radius: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+.inputPass{
+    margin-top: 10px;
+    width: 50%;
+    margin-left: 25%;
+}
+.inputEmail{
+    margin-top: 10px;
+    width: 50%;
+    margin-left: 25%;
+}
+.color{
+    background-color: grey;
+    padding: 10px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    width: 50%;
+    margin-left: 25%;
+    border-radius: 12px;
+}
+.borderedondoleft{
+    border-top-left-radius: 20 !important;
+
+}

@@ -6,7 +6,7 @@ import { appfirebase } from "../assets/database/firebaseconfig";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../assets/database/authcontext";
 
-import "../App.css";
+import "../components/Styles/Login.css"
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -41,7 +41,7 @@ const Login = () => {
   }
 
   return (
-    <Container className="d-flex vh-100 justify-content-center align-items-center">
+    <Container className="">
       <LoginForm
         email={email}
         password={password}
