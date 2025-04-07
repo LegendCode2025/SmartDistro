@@ -5,7 +5,7 @@ import "../components/Styles/Login.css";
 
 const LoginForm = ({ email, password, error, setEmail, setPassword, handleSubmit }) => {
   return (
-    <Row style={{marginTop: "-20%"}} className="">
+    <Row style={{marginTop: "-2 0%"}} className="">
       <Col>
 
         <Card className="targetLogin" style={{marginTop: "0%"}}>
