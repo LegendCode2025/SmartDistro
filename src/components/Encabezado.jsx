@@ -1,120 +1,68 @@
-import React, { useState } from "react";
+import React from "react";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Offcanvas from "react-bootstrap/Offcanvas";
-import logo from "../assets/react.svg";
 import { useAuth } from "../assets/database/authcontext";
-import 'bootstrap-icons/font/bootstrap-icons.css';
-import "../App.css";
-import { Link } from "react-router-dom";
+import "../components/Styles/Encabezado.css";
 
 const Encabezado = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
-  const { isLoggedIn, logout } = useAuth();
   const navigate = useNavigate();
+  const { isLoggedIn, user, userType, logout } = useAuth();
 
   const handleLogout = async () => {
-    try {
-      // Cerrar el offcanvas antes de proceder
-      setIsCollapsed(false);
-
-      // Eliminar variables almacenadas en localStorage
-      localStorage.removeItem("adminEmail");
-      localStorage.removeItem("adminPassword");
-
-      // Cerrar sesión
-      await logout();
-
-      // Redirigir al inicio
-      navigate("/");
-    } catch (error) {
-      console.error("Error al cerrar sesión:", error);
-    }
+    await logout();
+    navigate("/login");
   };
 
-  const handleToggle = () => setIsCollapsed(!isCollapsed);
-
-  // Funciones de navegación
-  const handleNavigate = (path) => {
-    navigate(path);
-    setIsCollapsed(false);
+  // Determinar el rol del usuario para mostrarlo
+  const getUserRole = () => {
+    if (!userType) return "";
+    return userType === "admin" ? "Administrador" : "Empleado";
   };
 
   return (
-    <Navbar expand="sm" fixed="top" className="color-navbar">
+    <Navbar expand="lg" className="encabezado">
       <Container>
-        <Navbar.Brand onClick={() => handleNavigate("/inicio")} className="text-white" style={{ cursor: "pointer" }}>
-          <img alt="" src={logo} width="30" height="30" className="d-inline-block align-top" />{" "}
-          <strong>SmartDistro</strong>
+        <Navbar.Brand onClick={() => navigate("/inicio")} className="d-flex align-items-center">
+        
+          <span className="ms-2">Smart Distro</span>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="offcanvasNavbar-expand-sm" onClick={handleToggle} />
-        <Navbar.Offcanvas
-          id="offcanvasNavbar-expand-sm"
-          aria-labelledby="offcanvasNavbarLabel-expand-sm"
-          placement="end"
-          show={isCollapsed}
-          onHide={() => setIsCollapsed(false)}
-        >
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title
-              id="offcanvasNavbarLabel-expand-sm"
-              className={isCollapsed ? "color-texto-marca" : "text-white"}
-            >
-              <i className="bi bi-list me-2"></i>Menú
-            </Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Nav.Link
-                onClick={() => handleNavigate("/inicio")}
-                className={isCollapsed ? "color-texto-marca" : "text-white"}
-              >
-                <i className="bi bi-house-door-fill me-2"></i>
-                <strong>Inicio</strong>
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => handleNavigate("/productos")}
-                className={isCollapsed ? "color-texto-marca" : "text-white"}
-              >
-                <i className="bi bi-box-seam me-2"></i>
-                <strong>Productos</strong>
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => handleNavigate("/categorias")}
-                className={isCollapsed ? "color-texto-marca" : "text-white"}
-              >
-                <i className="bi bi-tags me-2"></i>
-                <strong>Categorías</strong>
-              </Nav.Link>
-              <Nav.Link
-                onClick={() => handleNavigate("/catalogo")}
-                className={isCollapsed ? "color-texto-marca" : "text-white"}
-              >
-                <i className="bi bi-book me-2"></i>
-                <strong>Catálogo</strong>
-              </Nav.Link>
-              {isLoggedIn ? (
-                <Nav.Link onClick={handleLogout} className={isCollapsed ? "color-texto-marca" : "text-white"}>
-                  <i className="bi bi-box-arrow-right me-2"></i>
-                  <strong>Cerrar Sesión</strong>
-                </Nav.Link>
-              ) : (
-                <Nav.Link
-                  onClick={() => handleNavigate("/")}
-                  className={isCollapsed ? "color-texto-marca" : "text-white"}
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto align-items-center">
+            {isLoggedIn ? (
+              <>
+                <span className="user-info me-3">
+                  {getUserRole()} - {user?.email}
+                </span>
+                <Button
+                  className="cerrar-sesion-btn"
+                  onClick={handleLogout}
                 >
-                  <i className="bi bi-box-arrow-in-right me-2"></i>
-                  <strong>Iniciar Sesión</strong>
+                  Cerrar Sesión
+                </Button>
+              </>
+            ) : (
+              <>
+                <Nav.Link
+                  onClick={() => navigate("/login")}
+                  className="iniciar-sesion-link me-3"
+                >
+                  Iniciar Sesión
                 </Nav.Link>
-              )}
-            </Nav>
-          </Offcanvas.Body>
-        </Navbar.Offcanvas>
+                <Button
+                  variant="primary"
+                  className="registrar-distribuidora-btn"
+                  onClick={() => navigate("/registro-distribuidora")}
+                >
+                  Registrar Distribuidora
+                </Button>
+              </>
+            )}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   );
 };
 
-export default Encabezado; 
+export default Encabezado;

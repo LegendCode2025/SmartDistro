@@ -3,9 +3,9 @@ import { Navigate } from "react-router-dom";
 import { useAuth } from "../assets/database/authcontext";
 
 const ProtectedRoute = ({ element }) => {
-  const { user } = useAuth();
+  const { isLoggedIn } = useAuth();
 
-  return user ? element : <Navigate to="/" replace />;
+  return isLoggedIn ? element : <Navigate to="/login" replace />;
 };
 
-export default ProtectedRoute; 
+export default ProtectedRoute;

@@ -24,6 +24,8 @@
   border-radius: 15px;
   background: white;
   transition: transform 0.3s ease;
+  width: 100%;
+  margin-bottom: 1rem;
 }
 
 .card:hover {
@@ -97,4 +99,47 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.App {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  width: 100%;
+  flex: 1;
+  padding: 20px;
+}
+
+.container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+/* Estilos para el encabezado */
+.navbar {
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+
+/* Estilos para el contenido principal */
+.content {
+  width: 100%;
+  padding: 20px;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 10px;
+  }
+  
+  main {
+    padding: 10px;
+  }
 }

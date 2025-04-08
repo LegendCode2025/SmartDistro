@@ -1,35 +1,107 @@
-.targetLogin{
-    background-color: #D9D9D9;
+/* src/Styles/Login.css */
+.login-container {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
 
+.login-form-container {
+  background-color: #D9D9D9;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.TituloSecion{
-    background-color: #1A3557;
-    color: aliceblue;
-    width: 100%;
-    border-radius: 8px;
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-.inputPass{
-    margin-top: 10px;
-    width: 50%;
-    margin-left: 25%;
-}
-.inputEmail{
-    margin-top: 10px;
-    width: 50%;
-    margin-left: 25%;
-}
-.color{
-    background-color: #D9D9D9;
-    padding: 10px;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    width: 50%;
-    margin-left: 25%;
-    border-radius: 12px;
-}
-.borderedondoleft{
-    border-top-left-radius: 20 !important;
 
+.login-title {
+  background-color: #1A3557;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 100%;
+  padding: 5px 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-icon {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #888;
+}
+
+.input-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.input-container input::placeholder {
+  color: #888;
+}
+
+.login-button {
+  background-color: #1A3557;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  margin-top: 20px;
+}
+
+.login-button:hover {
+  background-color: #14304D;
+}
+
+.login-links {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.login-links a {
+  color: #1A3557;
+  text-decoration: none;
+}
+
+.login-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .login-form-container {
+    max-width: 100%;
+    padding: 15px;
+  }
 }

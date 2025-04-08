@@ -1,0 +1,156 @@
+.listar-empleados-container {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.listar-empleados-form-container {
+  background-color: #D9D9D9;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.listar-empleados-title {
+  background-color: #1A3557;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.listar-empleados-header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.agregar-empleados-button {
+  background-color: #1A3557;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.agregar-empleados-button:hover {
+  background-color: #14304D;
+}
+
+.empleados-list {
+  width: 100%;
+  max-height: 300px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.empleado-item {
+  background-color: #E9ECEF;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #d32f2f;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.delete-button:hover {
+  color: #b71c1c;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px;
+}
+
+.back-button {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.back-button:hover {
+  background-color: #f0f0f0;
+}
+
+.omitir-button {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.omitir-button:hover {
+  background-color: #f0f0f0;
+}
+
+.siguiente-button {
+  background-color: #1A3557;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.siguiente-button:hover {
+  background-color: #14304D;
+}
+
+@media (max-width: 768px) {
+  .listar-empleados-form-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .back-button,
+  .omitir-button,
+  .siguiente-button {
+    width: 100%;
+  }
+}

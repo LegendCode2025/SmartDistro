@@ -1,0 +1,173 @@
+.registro-admin-container {
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.registro-admin-form-container {
+  background-color: #D9D9D9;
+  width: 100%;
+  max-width: 800px;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.registro-admin-title {
+  background-color: #1A3557;
+  color: #fff;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  border-radius: 8px;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.registro-admin-content {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+.foto-perfil-placeholder {
+  background-color: #E9ECEF;
+  width: 150px;
+  height: 150px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #666;
+}
+
+.registro-admin-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  border-radius: 20px;
+  width: 100%;
+  padding: 5px 10px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+
+.input-icon {
+  margin-right: 10px;
+  font-size: 18px;
+  color: #888;
+}
+
+.input-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+  padding: 8px;
+  font-size: 16px;
+  color: #333;
+}
+
+.input-container input::placeholder {
+  color: #888;
+}
+
+/* Estilo específico para el input de tipo date */
+.input-container input[type="date"] {
+  color: #333;
+  -webkit-appearance: none; /* Para asegurar que el selector de fecha sea visible en navegadores WebKit */
+  appearance: none;
+}
+
+/* Estilo para el texto predeterminado del input de tipo date */
+.input-container input[type="date"]::-webkit-date-and-time-value {
+  color: #888;
+}
+
+/* Asegurar que el selector de fecha sea visible */
+.input-container input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  padding: 5px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  gap: 10px;
+}
+
+.back-button {
+  background-color: #fff;
+  color: #333;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.back-button:hover {
+  background-color: #f0f0f0;
+}
+
+.next-button {
+  background-color: #1A3557;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.next-button:hover {
+  background-color: #14304D;
+}
+
+@media (max-width: 768px) {
+  .registro-admin-form-container {
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .registro-admin-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .foto-perfil-placeholder {
+    width: 120px;
+    height: 120px;
+  }
+
+  .button-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .back-button, .next-button {
+    width: 100%;
+  }
+}

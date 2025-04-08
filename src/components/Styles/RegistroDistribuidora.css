@@ -1,0 +1,113 @@
+.registro-distribuidora-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f5f7fa;
+    padding: 20px;
+  }
+  
+  .registro-distribuidora-form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 800px;
+  }
+  
+  .registro-distribuidora-title {
+    background-color: #1e3a8a;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .registro-distribuidora-content {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .logo-placeholder {
+    flex: 1;
+    background-color: #e0e0e0;
+    border: 2px dashed #b0b0b0;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 24px;
+    color: #666;
+  }
+  
+  .registro-distribuidora-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .input-container {
+    display: flex;
+    align-items: center;
+    background-color: #f0f0f0;
+    border: 1px solid #d0d0d0;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  
+  .input-icon {
+    margin-right: 10px;
+    font-size: 20px;
+  }
+  
+  .input-container input {
+    border: none;
+    background: none;
+    outline: none;
+    flex: 1;
+    font-size: 16px;
+  }
+  
+  .input-container input::placeholder {
+    color: #999;
+  }
+  
+  .button-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  
+  .back-button, .next-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .back-button {
+    background-color: transparent;
+    color: #1e3a8a;
+    border: 2px solid #1e3a8a;
+  }
+  
+  .back-button:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .next-button {
+    background-color: #1e3a8a;
+    color: #fff;
+  }
+  
+  .next-button:hover {
+    background-color: #16307d;
+  }
