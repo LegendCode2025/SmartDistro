@@ -29,11 +29,11 @@
   border-radius: 20px !important;
   padding: 5px 15px !important;
   font-size: 1rem;
-}
-
-.registrar-distribuidora-btn:hover {
-  background-color: #14304d !important;
-  border-color: #14304d !important;
+  &:hover {
+    background-color: #2c5178 !important;
+    border-color: #2c5178 !important;
+    transition: background-color 0.2s ease; 
+  }
 }
 
 .user-info {
