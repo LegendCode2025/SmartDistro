@@ -1,0 +1,106 @@
+.gestion-ordenes-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.gestion-ordenes-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.gestion-ordenes-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.gestion-ordenes-subtitle {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.nuevas-ordenes-button {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.nuevas-ordenes-button:hover {
+  background-color: #0056b3;
+  border-color: #0056b3;
+}
+
+.ordenes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.ordenes-table th,
+.ordenes-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.ordenes-table th {
+  background-color: #f8f9fa;
+  font-weight: bold;
+}
+
+.ordenes-table tr:hover {
+  background-color: #f1f1f1;
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pagination-button {
+  min-width: 40px;
+}
+
+.modal-img-preview {
+  max-width: 100px;
+  height: auto;
+  margin-top: 10px;
+}
+
+.producto-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.producto-card:hover {
+  transform: scale(1.02);
+}
+
+.producto-imagen {
+  height: 150px;
+  object-fit: cover;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.badge {
+  font-size: 14px;
+  padding: 6px 12px;
+}
