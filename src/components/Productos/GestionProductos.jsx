@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import { Button, Modal, Form, Alert, Card, Col, Row, Pagination, InputGroup } from "react-bootstrap";
+import { Button, Modal, Form, Alert, Card, Col, Row, Pagination, InputGroup, Table } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { db, storage } from "../../assets/database/firebaseconfig";
 import { collection, query, where, getDocs, addDoc, deleteDoc, doc, updateDoc } from "firebase/firestore";
@@ -25,6 +25,7 @@ const GestionProductos = () => {
     unitSize: "",
     digito: "",
     precioUnitario: "",
+    ivaPorcentaje: "16", // Valor por defecto: 16% (común en México)
     descripcion: "",
     stock: "",
     imagen: "",
@@ -99,13 +100,18 @@ const GestionProductos = () => {
     try {
       const unitSize = Number(formValues.unitSize);
       const precioUnitario = Number(formValues.precioUnitario);
+      const ivaPorcentaje = Number(formValues.ivaPorcentaje);
       const stock = Number(formValues.stock);
 
+      // Validaciones
       if (isNaN(unitSize) || unitSize <= 0) {
         throw new Error("La cantidad por unidad debe ser un número positivo.");
       }
       if (isNaN(precioUnitario) || precioUnitario <= 0) {
         throw new Error("El precio unitario debe ser un número positivo.");
+      }
+      if (isNaN(ivaPorcentaje) || ivaPorcentaje < 0 || ivaPorcentaje > 100) {
+        throw new Error("El porcentaje de IVA debe estar entre 0 y 100.");
       }
       if (isNaN(stock) || stock < 0) {
         throw new Error("El stock debe ser un número no negativo.");
@@ -125,24 +131,47 @@ const GestionProductos = () => {
       }
 
       const precioTotal = unitSize * precioUnitario;
+      const precioUnitarioConIVA = precioUnitario * (1 + ivaPorcentaje / 100);
+      const precioTotalConIVA = precioTotal * (1 + ivaPorcentaje / 100);
+
       const productoData = {
         imagen: imagenUrl,
         nombre: formValues.nombre.trim(),
         unitSize,
         digito: formValues.digito,
         precioUnitario,
+        precioUnitarioConIVA: Number(precioUnitarioConIVA.toFixed(2)),
         precioTotal,
+        precioTotalConIVA: Number(precioTotalConIVA.toFixed(2)),
+        ivaPorcentaje,
         descripcion: formValues.descripcion.trim(),
         stock,
         fechaRegistro: new Date().toISOString().split("T")[0],
         distribuidoraId,
+        precioHistorial: [], // Inicializar el historial de precios
       };
 
       if (editProductoId) {
+        const productoActual = productos.find((p) => p.id === editProductoId);
+        const precioHistorial = productoActual.precioHistorial || [];
+        if (productoActual.precioUnitario !== precioUnitario) {
+          precioHistorial.push({
+            precioUnitario,
+            fecha: new Date().toISOString().split("T")[0],
+          });
+        }
+        productoData.precioHistorial = precioHistorial;
+
         const productoRef = doc(db, "productos", editProductoId);
         await updateDoc(productoRef, productoData);
         setProductos(productos.map((p) => (p.id === editProductoId ? { ...productoData, id: editProductoId } : p)));
       } else {
+        productoData.precioHistorial = [
+          {
+            precioUnitario,
+            fecha: new Date().toISOString().split("T")[0],
+          },
+        ];
         const productoRef = await addDoc(collection(db, "productos"), productoData);
         setProductos([...productos, { ...productoData, id: productoRef.id }]);
       }
@@ -180,6 +209,7 @@ const GestionProductos = () => {
       unitSize: producto.unitSize || "",
       digito: producto.digito || "",
       precioUnitario: producto.precioUnitario || "",
+      ivaPorcentaje: producto.ivaPorcentaje || "16",
       descripcion: producto.descripcion || "",
       stock: producto.stock || "",
       imagen: producto.imagen || "",
@@ -204,6 +234,7 @@ const GestionProductos = () => {
       unitSize: "",
       digito: "",
       precioUnitario: "",
+      ivaPorcentaje: "16",
       descripcion: "",
       stock: "",
       imagen: "",
@@ -291,36 +322,36 @@ const GestionProductos = () => {
         </Row>
 
         {loading && <div className="text-center">Cargando...</div>}
-        <Row>
-          {productosActuales.length === 0 ? (
-            <Col>
-              <p className="text-center">No hay productos registrados.</p>
-            </Col>
-          ) : (
-            productosActuales.map((producto) => (
-              <Col xs={12} sm={6} md={4} key={producto.id} className="mb-4">
-                <Card className="producto-card">
-                  {producto.imagen && (
-                    <Card.Img
-                      variant="top"
-                      src={producto.imagen}
-                      alt={producto.nombre}
-                      className="producto-imagen"
-                    />
-                  )}
-                  <Card.Body>
-                    <Card.Title>{producto.nombre}</Card.Title>
-                    <Card.Text>
-                      <strong>Stock:</strong> {producto.stock} <br />
-                      <strong>Precio Unitario:</strong> ${producto.precioUnitario}
-                    </Card.Text>
-                    <div className="card-actions">
+        {productosActuales.length === 0 ? (
+          <p className="text-center">No hay productos registrados.</p>
+        ) : (
+          <>
+            {/* Tabla para pantallas grandes (md y superiores) */}
+            <Table className="productos-table d-none d-md-table">
+              <thead>
+                <tr>
+                  <th>Nombre</th>
+                  <th>Stock</th>
+                  <th>Precio Unitario (sin IVA)</th>
+                  <th>Precio Unitario (con IVA)</th>
+                  <th>Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                {productosActuales.map((producto) => (
+                  <tr key={producto.id}>
+                    <td>{producto.nombre}</td>
+                    <td>{producto.stock}</td>
+                    <td>${producto.precioUnitario}</td>
+                    <td>${producto.precioUnitarioConIVA}</td>
+                    <td>
                       <Button
                         variant="outline-primary"
                         size="sm"
                         onClick={() => handleEditProducto(producto)}
                         disabled={loading}
                         aria-label="Editar producto"
+                        className="me-2"
                       >
                         <i className="bi bi-pencil me-1"></i>Editar
                       </Button>
@@ -330,6 +361,7 @@ const GestionProductos = () => {
                         onClick={() => handleDeleteProducto(producto.id)}
                         disabled={loading}
                         aria-label="Eliminar producto"
+                        className="me-2"
                       >
                         <i className="bi bi-trash me-1"></i>Eliminar
                       </Button>
@@ -342,13 +374,70 @@ const GestionProductos = () => {
                       >
                         <i className="bi bi-eye me-1"></i>Ver Más
                       </Button>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            ))
-          )}
-        </Row>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+
+            {/* Tarjetas para pantallas pequeñas (menores a md) */}
+            <div className="d-block d-md-none">
+              <Row>
+                {productosActuales.map((producto) => (
+                  <Col xs={12} sm={6} md={4} key={producto.id} className="mb-4">
+                    <Card className="producto-card">
+                      {producto.imagen && (
+                        <Card.Img
+                          variant="top"
+                          src={producto.imagen}
+                          alt={producto.nombre}
+                          className="producto-imagen"
+                        />
+                      )}
+                      <Card.Body>
+                        <Card.Title>{producto.nombre}</Card.Title>
+                        <Card.Text>
+                          <strong>Stock:</strong> {producto.stock} <br />
+                          <strong>Precio Unitario (sin IVA):</strong> ${producto.precioUnitario} <br />
+                          <strong>Precio Unitario (con IVA):</strong> ${producto.precioUnitarioConIVA}
+                        </Card.Text>
+                        <div className="card-actions">
+                          <Button
+                            variant="outline-primary"
+                            size="sm"
+                            onClick={() => handleEditProducto(producto)}
+                            disabled={loading}
+                            aria-label="Editar producto"
+                          >
+                            <i className="bi bi-pencil me-1"></i>Editar
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() => handleDeleteProducto(producto.id)}
+                            disabled={loading}
+                            aria-label="Eliminar producto"
+                          >
+                            <i className="bi bi-trash me-1"></i>Eliminar
+                          </Button>
+                          <Button
+                            variant="outline-info"
+                            size="sm"
+                            onClick={() => handleViewDetails(producto)}
+                            disabled={loading}
+                            aria-label="Ver detalles del producto"
+                          >
+                            <i className="bi bi-eye me-1"></i>Ver Más
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </>
+        )}
 
         {totalPaginas > 1 && (
           <Pagination className="pagination-container">{paginationItems}</Pagination>
@@ -424,7 +513,7 @@ const GestionProductos = () => {
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>
-                <i className="bi bi-currency-dollar me-2"></i>Precio Unitario
+                <i className="bi bi-currency-dollar me-2"></i>Precio Unitario (sin IVA)
               </Form.Label>
               <Form.Control
                 type="number"
@@ -435,6 +524,22 @@ const GestionProductos = () => {
                 required
                 min="0.01"
                 step="0.01"
+              />
+            </Form.Group>
+            <Form.Group className="mb-3">
+              <Form.Label>
+                <i className="bi bi-percent me-2"></i>Porcentaje de IVA
+              </Form.Label>
+              <Form.Control
+                type="number"
+                id="ivaPorcentaje"
+                value={formValues.ivaPorcentaje}
+                onChange={handleInputChange}
+                placeholder="Ej: 16 para 16%"
+                required
+                min="0"
+                max="100"
+                step="0.1"
               />
             </Form.Group>
             <Form.Group className="mb-3">
@@ -498,11 +603,26 @@ const GestionProductos = () => {
               <p><strong><i className="bi bi-tag me-2"></i>Nombre:</strong> {selectedProducto.nombre}</p>
               <p><strong><i className="bi bi-rulers me-2"></i>Cantidad por Unidad:</strong> {selectedProducto.unitSize}</p>
               <p><strong><i className="bi bi-boxes me-2"></i>Unidad:</strong> {selectedProducto.digito}</p>
-              <p><strong><i className="bi bi-currency-dollar me-2"></i>Precio Unitario:</strong> ${selectedProducto.precioUnitario}</p>
-              <p><strong><i className="bi bi-currency-dollar me-2"></i>Precio Total:</strong> ${selectedProducto.precioTotal}</p>
+              <p><strong><i className="bi bi-currency-dollar me-2"></i>Precio Unitario (sin IVA):</strong> ${selectedProducto.precioUnitario}</p>
+              <p><strong><i className="bi bi-currency-dollar me-2"></i>Precio Unitario (con IVA):</strong> ${selectedProducto.precioUnitarioConIVA}</p>
+              <p><strong><i className="bi bi-currency-dollar me-2"></i>Precio Total (sin IVA):</strong> ${selectedProducto.precioTotal}</p>
+              <p><strong><i className="bi bi-currency-dollar me-2"></i>Precio Total (con IVA):</strong> ${selectedProducto.precioTotalConIVA}</p>
+              <p><strong><i className="bi bi-percent me-2"></i>Porcentaje de IVA:</strong> {selectedProducto.ivaPorcentaje}%</p>
               <p><strong><i className="bi bi-text-paragraph me-2"></i>Descripción:</strong> {selectedProducto.descripcion || "Sin descripción"}</p>
               <p><strong><i className="bi bi-stack me-2"></i>Stock:</strong> {selectedProducto.stock}</p>
               <p><strong><i className="bi bi-calendar me-2"></i>Fecha de Registro:</strong> {selectedProducto.fechaRegistro}</p>
+              <p><strong><i className="bi bi-clock-history me-2"></i>Historial de Precios:</strong></p>
+              {selectedProducto.precioHistorial && selectedProducto.precioHistorial.length > 0 ? (
+                <ul>
+                  {selectedProducto.precioHistorial.map((entry, index) => (
+                    <li key={index}>
+                      ${entry.precioUnitario} - {entry.fecha}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No hay historial de precios disponible.</p>
+              )}
             </div>
           )}
         </Modal.Body>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Table, Form, FormControl, Row, Col, InputGroup, Alert } from "react-bootstrap";
+import { Button, Modal, Table, Form, FormControl, Row, Col, InputGroup, Alert, Card } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { db } from "../../assets/database/firebaseconfig";
 import { collection, query, where, getDocs, doc, updateDoc } from "firebase/firestore";
@@ -44,7 +44,7 @@ const GestionCaja = () => {
             id: doc.id,
             ...doc.data(),
           }))
-          .sort((a, b) => new Date(b.creadoEn) - new Date(a.creadoEn)); // Ordenar por creadoEn descendente
+          .sort((a, b) => new Date(b.creadoEn) - new Date(a.creadoEn));
         console.log("Órdenes cargadas:", ordenesList);
         setOrdenes(ordenesList);
         setFilteredOrdenes(ordenesList);
@@ -268,73 +268,141 @@ const GestionCaja = () => {
           <p className="text-center">No hay órdenes registradas.</p>
         )}
         {filteredOrdenes.length > 0 && (
-          <Table className="caja-table">
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-                <th>Cantidad Total</th>
-                <th>Total</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ordenesActuales.map((orden) => (
-                <tr key={orden.id}>
-                  <td>{orden.codigo || "N/A"}</td>
-                  <td>{orden.fecha || "N/A"}</td>
-                  <td>
-                    <span
-                      className={`badge ${
-                        orden.estado === "Pendiente"
-                          ? "bg-warning"
-                          : orden.estado === "Pagada"
-                          ? "bg-success"
-                          : "bg-primary"
-                      }`}
-                    >
-                      {orden.estado || "Pendiente"}
-                    </span>
-                  </td>
-                  <td>{orden.cantidadTotal || 0}</td>
-                  <td>
-                    {orden.total != null && orden.total >= 0
-                      ? `$${orden.total.toFixed(2)}`
-                      : <span className="text-warning">Sin total</span>}
-                  </td>
-                  <td>
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      onClick={() => handleOpenModal(orden)}
-                      className="me-2"
-                      disabled={loading}
-                    >
-                      <i className="bi bi-cash me-1"></i>Procesar Pago
-                    </Button>
-                    <Button
-                      variant="outline-success"
-                      size="sm"
-                      onClick={() => generatePDF(orden, false)}
-                      className="me-2"
-                      disabled={loading || !orden.total || orden.total <= 0}
-                    >
-                      <i className="bi bi-file-earmark-pdf me-1"></i>Generar PDF
-                    </Button>
-                    <Button
-                      variant="outline-info"
-                      size="sm"
-                      onClick={() => generatePDF(orden, true)}
-                      disabled={loading || !orden.total || orden.total <= 0}
-                    >
-                      <i className="bi bi-printer me-1"></i>Imprimir Baucher
-                    </Button>
-                  </td>
+          <>
+            {/* Tabla para pantallas grandes (md y superiores) */}
+            <Table className="caja-table d-none d-md-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Cantidad Total</th>
+                  <th>Total</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {ordenesActuales.map((orden) => (
+                  <tr key={orden.id}>
+                    <td>{orden.codigo || "N/A"}</td>
+                    <td>{orden.fecha || "N/A"}</td>
+                    <td>
+                      <span
+                        className={`badge ${
+                          orden.estado === "Pendiente"
+                            ? "bg-warning"
+                            : orden.estado === "Pagada"
+                            ? "bg-success"
+                            : "bg-primary"
+                        }`}
+                      >
+                        {orden.estado || "Pendiente"}
+                      </span>
+                    </td>
+                    <td>{orden.cantidadTotal || 0}</td>
+                    <td>
+                      {orden.total != null && orden.total >= 0
+                        ? `$${orden.total.toFixed(2)}`
+                        : <span className="text-warning">Sin total</span>}
+                    </td>
+                    <td>
+                      <Button
+                        variant="outline-primary"
+                        size="sm"
+                        onClick={() => handleOpenModal(orden)}
+                        className="me-2"
+                        disabled={loading}
+                      >
+                        <i className="bi bi-cash me-1"></i>Procesar Pago
+                      </Button>
+                      <Button
+                        variant="outline-success"
+                        size="sm"
+                        onClick={() => generatePDF(orden, false)}
+                        className="me-2"
+                        disabled={loading || !orden.total || orden.total <= 0}
+                      >
+                        <i className="bi bi-file-earmark-pdf me-1"></i>Generar PDF
+                      </Button>
+                      <Button
+                        variant="outline-info"
+                        size="sm"
+                        onClick={() => generatePDF(orden, true)}
+                        disabled={loading || !orden.total || orden.total <= 0}
+                      >
+                        <i className="bi bi-printer me-1"></i>Imprimir Baucher
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+
+            {/* Tarjetas para pantallas pequeñas (menores a md) */}
+            <div className="d-block d-md-none">
+              <Row>
+                {ordenesActuales.map((orden) => (
+                  <Col xs={12} key={orden.id} className="mb-3">
+                    <Card className="orden-card">
+                      <Card.Body>
+                        <Card.Title className="orden-card-title">
+                          Orden {orden.codigo || "N/A"}
+                        </Card.Title>
+                        <Card.Text>
+                          <strong>Fecha:</strong> {orden.fecha || "N/A"} <br />
+                          <strong>Estado:</strong>{" "}
+                          <span
+                            className={`badge ${
+                              orden.estado === "Pendiente"
+                                ? "bg-warning"
+                                : orden.estado === "Pagada"
+                                ? "bg-success"
+                                : "bg-primary"
+                            }`}
+                          >
+                            {orden.estado || "Pendiente"}
+                          </span> <br />
+                          <strong>Cantidad Total:</strong> {orden.cantidadTotal || 0} <br />
+                          <strong>Total:</strong>{" "}
+                          {orden.total != null && orden.total >= 0
+                            ? `$${orden.total.toFixed(2)}`
+                            : <span className="text-warning">Sin total</span>}
+                        </Card.Text>
+                        <div className="orden-card-actions">
+                          <Button
+                            variant="outline-primary"
+                            size="sm"
+                            onClick={() => handleOpenModal(orden)}
+                            className="me-2"
+                            disabled={loading}
+                          >
+                            <i className="bi bi-cash me-1"></i>Procesar Pago
+                          </Button>
+                          <Button
+                            variant="outline-success"
+                            size="sm"
+                            onClick={() => generatePDF(orden, false)}
+                            className="me-2"
+                            disabled={loading || !orden.total || orden.total <= 0}
+                          >
+                            <i className="bi bi-file-earmark-pdf me-1"></i>PDF
+                          </Button>
+                          <Button
+                            variant="outline-info"
+                            size="sm"
+                            onClick={() => generatePDF(orden, true)}
+                            disabled={loading || !orden.total || orden.total <= 0}
+                          >
+                            <i className="bi bi-printer me-1"></i>Imprimir
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </>
         )}
 
         {totalPaginas > 1 && (

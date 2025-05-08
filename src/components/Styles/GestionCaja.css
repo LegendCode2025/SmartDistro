@@ -1,3 +1,4 @@
+/* src/Styles/GestionCaja.css */
 .gestion-caja-container {
   padding: 20px;
   max-width: 1200px;
@@ -8,17 +9,18 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .gestion-caja-title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a3557;
   margin-bottom: 10px;
 }
 
 .gestion-caja-subtitle {
-  font-size: 16px;
+  font-size: 1rem;
   color: #666;
   margin-bottom: 20px;
 }
@@ -33,7 +35,6 @@
 .caja-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
 }
 
 .caja-table th,
@@ -45,7 +46,12 @@
 
 .caja-table th {
   background-color: #f8f9fa;
-  font-weight: bold;
+  font-weight: 600;
+  color: #1a3557;
+}
+
+.caja-table td {
+  color: #333;
 }
 
 .caja-table tr:hover {
@@ -55,14 +61,86 @@
 .pagination-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  margin-top: 20px;
 }
 
 .pagination-button {
-  min-width: 40px;
+  margin: 0 5px;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
-.badge {
-  font-size: 14px;
-  padding: 6px 12px;
+/* Estilos para las tarjetas en pantallas pequeñas */
+.orden-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.orden-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a3557;
+  margin-bottom: 10px;
+}
+
+.orden-card .card-text {
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.orden-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.orden-card-actions .btn {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+}
+
+/* Responsividad */
+@media (max-width: 767px) {
+  .gestion-caja-container {
+    padding: 10px;
+  }
+
+  .gestion-caja-content {
+    padding: 15px;
+  }
+
+  .gestion-caja-title {
+    font-size: 1.5rem;
+  }
+
+  .gestion-caja-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .pagination-button {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .gestion-caja-title {
+    font-size: 1.3rem;
+  }
+
+  .gestion-caja-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .pagination-button {
+    padding: 3px 6px;
+    font-size: 0.85rem;
+  }
 }

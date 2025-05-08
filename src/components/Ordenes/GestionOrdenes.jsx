@@ -376,66 +376,126 @@ const GestionOrdenes = () => {
           <p className="text-center">No hay órdenes registradas.</p>
         )}
         {filteredOrdenes.length > 0 && (
-          <Table className="ordenes-table">
-            <thead>
-              <tr>
-                <th>Código</th>
-                <th>Creado En</th>
-                <th>Fecha</th>
-                <th>Estado</th>
-                <th>Cantidad Total</th>
-                <th>Total</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody>
-              {ordenesActuales.map((orden, index) => (
-                <tr key={orden.id}>
-                  <td>{orden.codigo || "N/A"}</td>
-                  <td>{orden.creadoEn || "N/A"}</td>
-                  <td>{orden.fecha || "N/A"}</td>
-                  <td>
-                    <span
-                      className={`badge ${
-                        orden.estado === "Pendiente"
-                          ? "bg-warning"
-                          : orden.estado === "Pagada"
-                          ? "bg-success"
-                          : "bg-primary"
-                      }`}
-                    >
-                      {orden.estado || "Pendiente"}
-                    </span>
-                  </td>
-                  <td>{orden.cantidadTotal || 0}</td>
-                  <td>
-                    {orden.total != null && orden.total >= 0
-                      ? `$${orden.total.toFixed(2)}`
-                      : <span className="text-warning">Sin total</span>}
-                  </td>
-                  <td>
-                    <Button
-                      variant="outline-primary"
-                      size="sm"
-                      onClick={() => handleEditOrden(index)}
-                      className="me-2"
-                      disabled={loading}
-                    >
-                      <i className="bi bi-pencil me-1"></i>Editar
-                    </Button>
-                    <Button
-                      variant="outline-danger"
-                      size="sm"
-                      onClick={() => handleDeleteOrden(index)}
-                      disabled={loading}
-                    >
-                      <i className="bi bi-trash me-1"></i>Eliminar
-                    </Button>
-                  </td>
+          <>
+            {/* Tabla para pantallas grandes (md y superiores) */}
+            <Table className="ordenes-table d-none d-md-table">
+              <thead>
+                <tr>
+                  <th>Código</th>
+                  <th>Creado En</th>
+                  <th>Fecha</th>
+                  <th>Estado</th>
+                  <th>Cantidad Total</th>
+                  <th>Total</th>
+                  <th>Acciones</th>
                 </tr>
-              ))}
-            </tbody>
-          </Table>
+              </thead>
+              <tbody>
+                {ordenesActuales.map((orden, index) => (
+                  <tr key={orden.id}>
+                    <td>{orden.codigo || "N/A"}</td>
+                    <td>{orden.creadoEn || "N/A"}</td>
+                    <td>{orden.fecha || "N/A"}</td>
+                    <td>
+                      <span
+                        className={`badge ${
+                          orden.estado === "Pendiente"
+                            ? "bg-warning"
+                            : orden.estado === "Pagada"
+                            ? "bg-success"
+                            : "bg-primary"
+                        }`}
+                      >
+                        {orden.estado || "Pendiente"}
+                      </span>
+                    </td>
+                    <td>{orden.cantidadTotal || 0}</td>
+                    <td>
+                      {orden.total != null && orden.total >= 0
+                        ? `$${orden.total.toFixed(2)}`
+                        : <span className="text-warning">Sin total</span>}
+                    </td>
+                    <td>
+                      <Button
+                        variant="outline-primary"
+                        size="sm"
+                        onClick={() => handleEditOrden(index)}
+                        className="me-2"
+                        disabled={loading}
+                      >
+                        <i className="bi bi-pencil me-1"></i>Editar
+                      </Button>
+                      <Button
+                        variant="outline-danger"
+                        size="sm"
+                        onClick={() => handleDeleteOrden(index)}
+                        disabled={loading}
+                      >
+                        <i className="bi bi-trash me-1"></i>Eliminar
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+
+            {/* Tarjetas para pantallas pequeñas (menores a md) */}
+            <div className="d-block d-md-none">
+              <Row>
+                {ordenesActuales.map((orden, index) => (
+                  <Col xs={12} key={orden.id} className="mb-3">
+                    <Card className="orden-card">
+                      <Card.Body>
+                        <Card.Title className="orden-card-title">
+                          Orden {orden.codigo || "N/A"}
+                        </Card.Title>
+                        <Card.Text>
+                          <strong>Creado En:</strong> {orden.creadoEn || "N/A"} <br />
+                          <strong>Fecha:</strong> {orden.fecha || "N/A"} <br />
+                          <strong>Estado:</strong>{" "}
+                          <span
+                            className={`badge ${
+                              orden.estado === "Pendiente"
+                                ? "bg-warning"
+                                : orden.estado === "Pagada"
+                                ? "bg-success"
+                                : "bg-primary"
+                            }`}
+                          >
+                            {orden.estado || "Pendiente"}
+                          </span> <br />
+                          <strong>Cantidad Total:</strong> {orden.cantidadTotal || 0} <br />
+                          <strong>Total:</strong>{" "}
+                          {orden.total != null && orden.total >= 0
+                            ? `$${orden.total.toFixed(2)}`
+                            : <span className="text-warning">Sin total</span>}
+                        </Card.Text>
+                        <div className="orden-card-actions">
+                          <Button
+                            variant="outline-primary"
+                            size="sm"
+                            onClick={() => handleEditOrden(index)}
+                            className="me-2"
+                            disabled={loading}
+                          >
+                            <i className="bi bi-pencil me-1"></i>Editar
+                          </Button>
+                          <Button
+                            variant="outline-danger"
+                            size="sm"
+                            onClick={() => handleDeleteOrden(index)}
+                            disabled={loading}
+                          >
+                            <i className="bi bi-trash me-1"></i>Eliminar
+                          </Button>
+                        </div>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
+            </div>
+          </>
         )}
 
         {totalPaginas > 1 && (

@@ -1,3 +1,4 @@
+/* src/Styles/GestionOrdenes.css */
 .gestion-ordenes-container {
   padding: 20px;
   max-width: 1200px;
@@ -8,17 +9,18 @@
   background-color: #fff;
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 
 .gestion-ordenes-title {
-  font-size: 24px;
-  font-weight: bold;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1a3557;
   margin-bottom: 10px;
 }
 
 .gestion-ordenes-subtitle {
-  font-size: 16px;
+  font-size: 1rem;
   color: #666;
   margin-bottom: 20px;
 }
@@ -31,19 +33,22 @@
 }
 
 .nuevas-ordenes-button {
-  background-color: #007bff;
-  border-color: #007bff;
+  background-color: #1a3557;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .nuevas-ordenes-button:hover {
-  background-color: #0056b3;
-  border-color: #0056b3;
+  background-color: #2a4b7c;
 }
 
 .ordenes-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
 }
 
 .ordenes-table th,
@@ -55,7 +60,12 @@
 
 .ordenes-table th {
   background-color: #f8f9fa;
-  font-weight: bold;
+  font-weight: 600;
+  color: #1a3557;
+}
+
+.ordenes-table td {
+  color: #333;
 }
 
 .ordenes-table tr:hover {
@@ -65,42 +75,159 @@
 .pagination-container {
   display: flex;
   justify-content: center;
-  gap: 10px;
+  margin-top: 20px;
 }
 
 .pagination-button {
-  min-width: 40px;
+  margin: 0 5px;
+  border-radius: 5px;
+  padding: 5px 10px;
 }
 
+/* Estilos para las tarjetas en pantallas pequeñas */
+.orden-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.orden-card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a3557;
+  margin-bottom: 10px;
+}
+
+.orden-card .card-text {
+  color: #333;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.orden-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.orden-card-actions .btn {
+  font-size: 0.85rem;
+  padding: 5px 10px;
+}
+
+/* Estilos para el modal */
 .modal-img-preview {
-  max-width: 100px;
-  height: auto;
+  max-width: 100%;
+  max-height: 150px;
+  object-fit: cover;
+  border-radius: 5px;
   margin-top: 10px;
 }
 
 .producto-card {
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.2s;
+  transition: transform 0.2s ease;
 }
 
 .producto-card:hover {
-  transform: scale(1.02);
+  transform: translateY(-5px);
 }
 
 .producto-imagen {
   height: 150px;
   object-fit: cover;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.producto-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a3557;
+}
+
+.producto-card .card-text {
+  font-size: 0.9rem;
+  color: #333;
 }
 
 .card-actions {
   display: flex;
-  justify-content: center;
-  margin-top: 10px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-.badge {
-  font-size: 14px;
-  padding: 6px 12px;
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Responsividad */
+@media (max-width: 767px) {
+  .gestion-ordenes-container {
+    padding: 10px;
+  }
+
+  .gestion-ordenes-content {
+    padding: 15px;
+  }
+
+  .gestion-ordenes-title {
+    font-size: 1.5rem;
+  }
+
+  .gestion-ordenes-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nuevas-ordenes-button {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .pagination-button {
+    padding: 4px 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .gestion-ordenes-title {
+    font-size: 1.3rem;
+  }
+
+  .gestion-ordenes-subtitle {
+    font-size: 0.85rem;
+  }
+
+  .modal-img-preview {
+    max-height: 120px;
+  }
+
+  .producto-card .card-title {
+    font-size: 1rem;
+  }
+
+  .producto-card .card-text {
+    font-size: 0.85rem;
+  }
+
+  .card-actions .btn {
+    font-size: 0.85rem;
+    padding: 5px 10px;
+  }
+
+  .pagination-button {
+    padding: 3px 6px;
+    font-size: 0.85rem;
+  }
 }
