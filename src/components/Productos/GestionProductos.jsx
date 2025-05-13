@@ -25,19 +25,19 @@ const GestionProductos = () => {
     unitSize: "",
     digito: "",
     precioUnitario: "",
-    ivaPorcentaje: "16", // Valor por defecto: 16% (común en México)
+    ivaPorcentaje: "16",
     descripcion: "",
     stock: "",
     imagen: "",
   });
   const productosPorPagina = 6;
   const navigate = useNavigate();
-  const { distribuidoraId } = useAuth();
+  const { distribuidoraId, isLoggedIn } = useAuth();
 
   // Obtener productos de Firestore
   const fetchProductos = useCallback(async () => {
-    if (!distribuidoraId) {
-      setError("No se encontró el ID de la distribuidora. Inicia sesión de nuevo.");
+    if (!distribuidoraId || !isLoggedIn) {
+      setError("No se encontró el ID de la distribuidora o no estás autenticado. Inicia sesión de nuevo.");
       return;
     }
 
@@ -60,7 +60,7 @@ const GestionProductos = () => {
     } finally {
       setLoading(false);
     }
-  }, [distribuidoraId]);
+  }, [distribuidoraId, isLoggedIn]);
 
   useEffect(() => {
     fetchProductos();
@@ -90,8 +90,8 @@ const GestionProductos = () => {
   // Manejar envío del formulario (agregar o editar)
   const handleSubmitProducto = async (e) => {
     e.preventDefault();
-    if (!distribuidoraId) {
-      setError("No se encontró el ID de la distribuidora. Inicia sesión de nuevo.");
+    if (!distribuidoraId || !isLoggedIn) {
+      setError("No se encontró el ID de la distribuidora o no estás autenticado. Inicia sesión de nuevo.");
       return;
     }
 
@@ -125,7 +125,8 @@ const GestionProductos = () => {
 
       let imagenUrl = formValues.imagen || "";
       if (imagenFile) {
-        const storageRef = ref(storage, `productos/${distribuidoraId}/${Date.now()}_${imagenFile.name}`);
+        const fileName = `${Date.now()}_${imagenFile.name}`;
+        const storageRef = ref(storage, `productos/${distribuidoraId}/${fileName}`);
         const snapshot = await uploadBytes(storageRef, imagenFile);
         imagenUrl = await getDownloadURL(snapshot.ref);
       }
@@ -178,7 +179,7 @@ const GestionProductos = () => {
 
       resetForm();
     } catch (error) {
-      setError(error.message || `Error al ${editProductoId ? "actualizar" : "guardar"} el producto. Intenta de nuevo.`);
+      setError(`Error al ${editProductoId ? "actualizar" : "guardar"} el producto: ${error.message}. Verifica las reglas de Storage o tu autenticación.`);
       console.error("Error:", error);
     } finally {
       setLoading(false);
@@ -209,7 +210,7 @@ const GestionProductos = () => {
       unitSize: producto.unitSize || "",
       digito: producto.digito || "",
       precioUnitario: producto.precioUnitario || "",
-      ivaPorcentaje: producto.ivaPorcentaje || "16",
+      ivaPorcentaje: product.ivaPorcentaje || "16",
       descripcion: producto.descripcion || "",
       stock: producto.stock || "",
       imagen: producto.imagen || "",

@@ -7,11 +7,13 @@ import Inicio from "./views/Inicio";
 import RegistroDistribuidora from "./components/Registros/RegistroDistribuidora";
 import RegistroAdmin from "./components/Registros/RegistroAdmin";
 import ListarEmpleados from "./components/Registros/ListarEmpleados";
-import GestionProductos from "./components/Productos/GestionProductos"; // Nuevo componente
+import GestionProductos from "./components/Productos/GestionProductos";
 import GestionOrdenes from "./components/Ordenes/GestionOrdenes";
 import GestionCaja from "./components/Caja/GestionCaja";
 import ProtectedRoute from "./components/ProtectedRoute";
+import GestionConfiguracion from "./components/Configuracion/GestionConfiguracion";
 import './App.css';
+import Estadisticas from "./components/Estadisticas/Estadisticas";
 
 function App() {
   return (
@@ -27,16 +29,16 @@ function App() {
               <Route path="/registro-distribuidora" element={<RegistroDistribuidora />} />
               <Route path="/registro-admin" element={<RegistroAdmin />} />
               <Route path="/listar-empleados" element={<ListarEmpleados />} />
-              <Route path="/gestion-productos" element={<GestionProductos />} /> {/* Nueva ruta */}
-              <Route path="/gestion-ordenes" element={<GestionOrdenes />} /> {/* Nueva ruta */}
-              <Route path="/gestion-caja" element={<GestionCaja />} /> {/* Nueva ruta */}
-              <Route path="/estadisticas" element={<div>Estadísticas (Placeholder)</div>} />
-              <Route path="/menu" element={<div>Menú (Placeholder)</div>} />
+              <Route path="/gestion-productos" element={<ProtectedRoute element={<GestionProductos />} />} />
+              <Route path="/gestion-ordenes" element={<ProtectedRoute element={<GestionOrdenes />} />} />
+              <Route path="/gestion-caja" element={<ProtectedRoute element={<GestionCaja />} />} />
+              <Route path="/estadisticas" element={<ProtectedRoute element={<Estadisticas/>} />} />
+              <Route path="/gestion-configuracion" element={<ProtectedRoute element={<GestionConfiguracion />} />} />
               <Route path="*" element={<div>404 - Página no encontrada</div>} />
             </Routes>
           </main>
         </div>
-      </Router> 
+      </Router>
     </AuthProvider>
   );
 }

@@ -17,7 +17,7 @@ const Encabezado = () => {
   // Determinar el rol del usuario para mostrarlo
   const getUserRole = () => {
     if (!userType) return "";
-    return userType === "admin" ? "Administrador" : "Empleado";
+    return userType; // Devuelve el rol tal como está registrado: "Administrador", "Caja", "Atención al cliente"
   };
 
   // Determinar si mostrar el menú secundario
@@ -26,7 +26,7 @@ const Encabezado = () => {
     "/gestion-caja",
     "/gestion-ordenes",
     "/estadisticas",
-    "/menu",
+    "/gestion-configuracion",
   ].includes(location.pathname);
 
   return (
@@ -72,11 +72,11 @@ const Encabezado = () => {
                   Estadísticas
                 </Nav.Link>
                 <Nav.Link
-                  active={location.pathname === "/menu"}
-                  onClick={() => navigate("/menu")}
+                  active={location.pathname === "/gestion-configuracion"}
+                  onClick={() => navigate("/gestion-configuracion")}
                   className="nav-link-custom"
                 >
-                  Menú
+                  Configuración
                 </Nav.Link>
               </Nav>
             )}

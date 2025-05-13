@@ -1,0 +1,56 @@
+/* Estilos para el contenedor principal */
+.estadisticas-container {
+    padding: 20px;
+    max-width: 1200px; /* Ancho máximo para pantallas grandes */
+    margin: 0 auto; /* Centrar el contenedor */
+  }
+  
+  /* Contenedor de los gráficos con Flexbox */
+  .graficos-grid {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los gráficos se envuelvan al siguiente renglón */
+    gap: 20px; /* Espacio entre gráficos */
+    justify-content: center; /* Centrar los gráficos horizontalmente */
+  }
+  
+  /* Estilo para cada sección de gráfico */
+  .grafico-section {
+    flex: 1 1 400px; /* Cada gráfico ocupa al menos 400px, pero puede crecer */
+    max-width: 450px; /* Límite máximo de ancho para cada gráfico */
+    background-color: #f9f9f9; /* Fondo claro */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    padding: 15px; /* Espaciado interno */
+    text-align: center; /* Centrar títulos y botones */
+  }
+  
+  /* Estilo para los títulos de cada sección */
+  .grafico-section h3 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    color: #333;
+  }
+  
+  /* Estilo para el botón de exportar */
+  .grafico-section button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+  }
+  
+  .grafico-section button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Ajustes para pantallas pequeñas */
+  @media (max-width: 600px) {
+    .grafico-section {
+      flex: 1 1 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+      max-width: 100%;
+    }
+  }
