@@ -30,56 +30,57 @@ const Encabezado = () => {
   ].includes(location.pathname);
 
   return (
-    <Navbar expand="lg" className="encabezado">
-      <Container>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="w-100 align-items-center">
-            {/* Logo */}
-            <Nav.Link onClick={() => navigate("/inicio")} className="logo-text">
-              Smart Distro
-            </Nav.Link>
+    <div className="encabezado">
+      <Navbar bg="light" expand="lg" className="shadow-sm">
+        <Container>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="w-100 align-items-center">
+              {/* Logo */}
+              <Nav.Link onClick={() => navigate("/inicio")} className="logo-text">
+                Smart Distro
+              </Nav.Link>
 
-            {/* Menú Secundario (si está autenticado y en la ruta correcta) */}
-            {isLoggedIn && showSecondaryMenu && (
-              <Nav className="secondary-nav">
-                <Nav.Link
-                  active={location.pathname === "/gestion-productos"}
-                  onClick={() => navigate("/gestion-productos")}
-                  className="nav-link-custom"
-                >
-                  Productos
-                </Nav.Link>
-                <Nav.Link
-                  active={location.pathname === "/gestion-caja"}
-                  onClick={() => navigate("/gestion-caja")}
-                  className="nav-link-custom"
-                >
-                  Caja
-                </Nav.Link>
-                <Nav.Link
-                  active={location.pathname === "/gestion-ordenes"}
-                  onClick={() => navigate("/gestion-ordenes")}
-                  className="nav-link-custom"
-                >
-                  Órdenes
-                </Nav.Link>
-                <Nav.Link
-                  active={location.pathname === "/estadisticas"}
-                  onClick={() => navigate("/estadisticas")}
-                  className="nav-link-custom"
-                >
-                  Estadísticas
-                </Nav.Link>
-                <Nav.Link
-                  active={location.pathname === "/gestion-configuracion"}
-                  onClick={() => navigate("/gestion-configuracion")}
-                  className="nav-link-custom"
-                >
-                  Configuración
-                </Nav.Link>
-              </Nav>
-            )}
+              {/* Menú Secundario (si está autenticado y en la ruta correcta) */}
+              {isLoggedIn && showSecondaryMenu && (
+                <Nav className="secondary-nav">
+                  <Nav.Link
+                    active={location.pathname === "/gestion-productos"}
+                    onClick={() => navigate("/gestion-productos")}
+                    className="nav-link-custom"
+                  >
+                    Productos
+                  </Nav.Link>
+                  <Nav.Link
+                    active={location.pathname === "/gestion-caja"}
+                    onClick={() => navigate("/gestion-caja")}
+                    className="nav-link-custom"
+                  >
+                    Caja
+                  </Nav.Link>
+                  <Nav.Link
+                    active={location.pathname === "/gestion-ordenes"}
+                    onClick={() => navigate("/gestion-ordenes")}
+                    className="nav-link-custom"
+                  >
+                    Órdenes
+                  </Nav.Link>
+                  <Nav.Link
+                    active={location.pathname === "/estadisticas"}
+                    onClick={() => navigate("/estadisticas")}
+                    className="nav-link-custom"
+                  >
+                    Estadísticas
+                  </Nav.Link>
+                  <Nav.Link
+                    active={location.pathname === "/gestion-configuracion"}
+                    onClick={() => navigate("/gestion-configuracion")}
+                    className="nav-link-custom"
+                  >
+                    Configuración
+                  </Nav.Link>
+                </Nav>
+              )}
 
             {/* Espaciador para empujar los elementos a la derecha */}
             <div className="flex-grow-1"></div>
@@ -115,6 +116,7 @@ const Encabezado = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+    </div>
   );
 };
 

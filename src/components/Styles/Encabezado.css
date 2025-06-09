@@ -1,8 +1,18 @@
 /* src/components/Styles/Encabezado.css */
 .encabezado {
-  background-color: transparent !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   padding: 10px 20px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.App, main {
+  padding-top: 80px; /* Ajusta según la altura real del header */
 }
 
 .logo-text {
