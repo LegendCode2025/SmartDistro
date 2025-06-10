@@ -47,7 +47,7 @@ export const AuthProvider = ({ children }) => {
             const empleadoDoc = empleadosSnapshot.docs[0];
             const empleadoData = empleadoDoc.data();
             setUser({ ...firebaseUser, id: empleadoDoc.id });
-            setUserType("empleado");
+            setUserType(empleadoData.rol || "empleado"); // Usa el campo rol si existe
             setDistribuidoraId(distribuidoraDoc.id);
             setIsLoggedIn(true);
             break;
