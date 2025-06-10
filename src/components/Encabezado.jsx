@@ -43,44 +43,69 @@ const Encabezado = () => {
 
               {/* Menú Secundario (si está autenticado y en la ruta correcta) */}
               {isLoggedIn && showSecondaryMenu && (
-                <Nav className="secondary-nav">
-                  <Nav.Link
-                    active={location.pathname === "/gestion-productos"}
-                    onClick={() => navigate("/gestion-productos")}
-                    className="nav-link-custom"
-                  >
-                    Productos
-                  </Nav.Link>
-                  <Nav.Link
-                    active={location.pathname === "/gestion-caja"}
-                    onClick={() => navigate("/gestion-caja")}
-                    className="nav-link-custom"
-                  >
-                    Caja
-                  </Nav.Link>
-                  <Nav.Link
-                    active={location.pathname === "/gestion-ordenes"}
-                    onClick={() => navigate("/gestion-ordenes")}
-                    className="nav-link-custom"
-                  >
-                    Órdenes
-                  </Nav.Link>
-                  <Nav.Link
-                    active={location.pathname === "/estadisticas"}
-                    onClick={() => navigate("/estadisticas")}
-                    className="nav-link-custom"
-                  >
-                    Estadísticas
-                  </Nav.Link>
-                  <Nav.Link
-                    active={location.pathname === "/gestion-configuracion"}
-                    onClick={() => navigate("/gestion-configuracion")}
-                    className="nav-link-custom"
-                  >
-                    Configuración
-                  </Nav.Link>
-                </Nav>
-              )}
+  <Nav className="secondary-nav">
+    {/* Administrador ve todos los botones */}
+    {userType === "admin" && (
+      <>
+        <Nav.Link
+          active={location.pathname === "/gestion-productos"}
+          onClick={() => navigate("/gestion-productos")}
+          className="nav-link-custom"
+        >
+          Productos
+        </Nav.Link>
+        <Nav.Link
+          active={location.pathname === "/gestion-caja"}
+          onClick={() => navigate("/gestion-caja")}
+          className="nav-link-custom"
+        >
+          Caja
+        </Nav.Link>
+        <Nav.Link
+          active={location.pathname === "/gestion-ordenes"}
+          onClick={() => navigate("/gestion-ordenes")}
+          className="nav-link-custom"
+        >
+          Órdenes
+        </Nav.Link>
+        <Nav.Link
+          active={location.pathname === "/estadisticas"}
+          onClick={() => navigate("/estadisticas")}
+          className="nav-link-custom"
+        >
+          Estadísticas
+        </Nav.Link>
+        <Nav.Link
+          active={location.pathname === "/gestion-configuracion"}
+          onClick={() => navigate("/gestion-configuracion")}
+          className="nav-link-custom"
+        >
+          Configuración
+        </Nav.Link>
+      </>
+    )}
+    {/* Solo Caja ve el botón Caja */}
+    {userType === "Caja" && (
+      <Nav.Link
+        active={location.pathname === "/gestion-caja"}
+        onClick={() => navigate("/gestion-caja")}
+        className="nav-link-custom"
+      >
+        Caja
+      </Nav.Link>
+    )}
+    {/* Solo Atención al cliente ve el botón Órdenes */}
+    {userType === "Atención al cliente" && (
+      <Nav.Link
+        active={location.pathname === "/gestion-ordenes"}
+        onClick={() => navigate("/gestion-ordenes")}
+        className="nav-link-custom"
+      >
+        Órdenes
+      </Nav.Link>
+    )}
+  </Nav>
+)}
 
             {/* Espaciador para empujar los elementos a la derecha */}
             <div className="flex-grow-1"></div>
