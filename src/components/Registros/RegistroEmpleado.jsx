@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { db, appfirebase } from "../../assets/database/firebaseconfig"; // Ajusta la ruta según tu estructura
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { appfirebase } from "../../assets/database/firebaseconfig"; // Ajusta la ruta según tu estructura
 import "../Styles/RegistroEmpleado.css";
 
 const RegistroEmpleado = ({ onAddEmpleado }) => {

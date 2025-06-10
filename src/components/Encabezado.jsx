@@ -20,14 +20,8 @@ const Encabezado = () => {
     return userType; // Devuelve el rol tal como está registrado: "Administrador", "Caja", "Atención al cliente"
   };
 
-  // Determinar si mostrar el menú secundario
-  const showSecondaryMenu = [
-    "/gestion-productos",
-    "/gestion-caja",
-    "/gestion-ordenes",
-    "/estadisticas",
-    "/gestion-configuracion",
-  ].includes(location.pathname);
+  // Mostrar el menú secundario siempre que el usuario esté autenticado
+  const showSecondaryMenu = isLoggedIn;
 
   return (
     <div className="encabezado">
