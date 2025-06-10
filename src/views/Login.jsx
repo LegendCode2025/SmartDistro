@@ -4,6 +4,7 @@ import { appfirebase } from "../assets/database/firebaseconfig"; // Ajusta la ru
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useAuth } from "../assets/database/authcontext";
 import "../components/Styles/Login.css";
+import RoleRedirect from "../components/RoleRedirect";
 
 const Login = () => {
   const [email, setEmail] = useState("");

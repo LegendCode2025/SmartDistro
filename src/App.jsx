@@ -29,11 +29,11 @@ function App() {
               <Route path="/registro-distribuidora" element={<RegistroDistribuidora />} />
               <Route path="/registro-admin" element={<RegistroAdmin />} />
               <Route path="/listar-empleados" element={<ListarEmpleados />} />
-              <Route path="/gestion-productos" element={<ProtectedRoute element={<GestionProductos />} />} />
-              <Route path="/gestion-ordenes" element={<ProtectedRoute element={<GestionOrdenes />} />} />
-              <Route path="/gestion-caja" element={<ProtectedRoute element={<GestionCaja />} />} />
-              <Route path="/estadisticas" element={<ProtectedRoute element={<Estadisticas/>} />} />
-              <Route path="/gestion-configuracion" element={<ProtectedRoute element={<GestionConfiguracion />} />} />
+              <Route path="/gestion-productos" element={<ProtectedRoute element={<GestionProductos />} allowedRoles={["admin"]} />} />
+              <Route path="/gestion-ordenes" element={<ProtectedRoute element={<GestionOrdenes />} allowedRoles={["Atención al cliente", "admin"]} />} />
+              <Route path="/gestion-caja" element={<ProtectedRoute element={<GestionCaja />} allowedRoles={["Caja", "admin"]} />} />
+              <Route path="/estadisticas" element={<ProtectedRoute element={<Estadisticas/>} allowedRoles={["admin"]} />} />
+              <Route path="/gestion-configuracion" element={<ProtectedRoute element={<GestionConfiguracion />} allowedRoles={["admin"]} />} />
               <Route path="*" element={<div>404 - Página no encontrada</div>} />
             </Routes>
           </main>
