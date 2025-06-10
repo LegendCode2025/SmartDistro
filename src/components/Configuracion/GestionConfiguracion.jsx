@@ -22,6 +22,7 @@ const Configuracion = () => {
     nombres: '',
     apellidos: '',
     email: '',
+    contrasena: '',
     telefono: '',
     telefonoFamiliar: '',
     cedula: '',
@@ -113,6 +114,7 @@ const Configuracion = () => {
         nombres: editEmpleado.nombres,
         apellidos: editEmpleado.apellidos,
         email: editEmpleado.email,
+        contrasena: editEmpleado.contrasena,
         telefono: editEmpleado.telefono,
         telefonoFamiliar: editEmpleado.telefonoFamiliar,
         cedula: editEmpleado.cedula,
@@ -132,6 +134,7 @@ const Configuracion = () => {
         nombres: nuevoEmpleado.nombres,
         apellidos: nuevoEmpleado.apellidos,
         email: nuevoEmpleado.email,
+        contrasena: nuevoEmpleado.contrasena,
         telefono: nuevoEmpleado.telefono,
         telefonoFamiliar: nuevoEmpleado.telefonoFamiliar,
         cedula: nuevoEmpleado.cedula,
@@ -145,6 +148,7 @@ const Configuracion = () => {
         nombres: '',
         apellidos: '',
         email: '',
+        contrasena: '',
         telefono: '',
         telefonoFamiliar: '',
         cedula: '',
@@ -344,6 +348,16 @@ const Configuracion = () => {
                   }
                 />
               </Form.Group>
+              <Form.Group className="mb-3" controlId="formContrasena">
+                <Form.Label>contraseña</Form.Label>
+                <Form.Control
+                  type="password"
+                  value={editEmpleado.contrasena}
+                  onChange={(e) =>
+                    setEditEmpleado({ ...editEmpleado, contrasena: e.target.value })
+                  }
+                />
+              </Form.Group>
               <Form.Group className="mb-3" controlId="formTelefono">
                 <Form.Label>Teléfono</Form.Label>
                 <Form.Control
@@ -353,6 +367,7 @@ const Configuracion = () => {
                     setEditEmpleado({ ...editEmpleado, telefono: e.target.value })
                   }
                 />
+                
               </Form.Group>
               <Form.Group className="mb-3" controlId="formTelefonoFamiliar">
                 <Form.Label>Teléfono Familiar</Form.Label>
@@ -433,6 +448,17 @@ const Configuracion = () => {
                 value={nuevoEmpleado.email}
                 onChange={(e) =>
                   setNuevoEmpleado({ ...nuevoEmpleado, email: e.target.value })
+                }
+                required
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formContrasena">
+              <Form.Label>Contraseña</Form.Label>
+              <Form.Control
+                type="password"
+                value={nuevoEmpleado.contrasena}
+                onChange={(e) =>
+                  setNuevoEmpleado({ ...nuevoEmpleado, contrasena: e.target.value })
                 }
                 required
               />
