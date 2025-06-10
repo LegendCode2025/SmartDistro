@@ -105,7 +105,7 @@ const ListarEmpleados = () => {
       {/* Modal para agregar empleado */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Registrar Empleado</Modal.Title>
+          <Modal.Title>TEST MODAL REGISTRO</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <RegistroEmpleado onAddEmpleado={handleAddEmpleado} />

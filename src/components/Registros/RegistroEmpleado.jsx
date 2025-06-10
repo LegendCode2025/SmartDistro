@@ -50,10 +50,19 @@ const RegistroEmpleado = ({ onAddEmpleado }) => {
       setCedula("");
       setFechaNacimiento("");
     } catch (error) {
-      setError("Error al registrar el empleado. Intenta de nuevo.");
+      if (error.code === "auth/email-already-in-use") {
+        setError("El correo electrónico ya está en uso.");
+      } else if (error.code === "auth/invalid-email") {
+        setError("El correo electrónico no es válido.");
+      } else if (error.code === "auth/weak-password") {
+        setError("La contraseña es demasiado débil. Debe tener al menos 6 caracteres.");
+      } else {
+        setError("Error al registrar el empleado. Intenta de nuevo.");
+      }
       console.error("Error al registrar el empleado:", error);
     }
   };
+
 
   return (
     <div className="registro-empleado-container">
@@ -73,7 +82,7 @@ const RegistroEmpleado = ({ onAddEmpleado }) => {
           <span className="input-icon">📛</span>
           <input
             type="text"
-            placeholder="Nombres"
+            placeholder="NOMBRES TEST CAMBIO"
             value={nombres}
             onChange={(e) => setNombres(e.target.value)}
             required
@@ -103,7 +112,7 @@ const RegistroEmpleado = ({ onAddEmpleado }) => {
           <span className="input-icon">🔒</span>
           <input
             type="password"
-            placeholder="Contraseña"
+            placeholder="CONTRASEÑA TEST CAMBIO"
             value={contrasena}
             onChange={(e) => setContrasena(e.target.value)}
             required
