@@ -16,6 +16,9 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+// ID de la distribuidora a la que quieres agregar empleados
+const distribuidoraId = "TU_DISTRIBUIDORA_ID_AQUI"; // <-- Cambia esto por el ID real
+
 // Lista de empleados/usuarios a crear
 const empleados = [
   {
@@ -34,11 +37,12 @@ const empleados = [
 
 async function crearEmpleados() {
   for (const empleado of empleados) {
-    const ref = doc(collection(db, "empleados"), empleado.email);
+    // Crea el empleado en la subcolección de la distribuidora
+    const ref = doc(collection(db, "distribuidoras", distribuidoraId, "empleados"));
     await setDoc(ref, empleado);
-    console.log(`Empleado creado: ${empleado.email} (${empleado.rol})`);
+    console.log(`Empleado creado en distribuidora ${distribuidoraId}: ${empleado.email} (${empleado.rol})`);
   }
-  console.log("Todos los empleados han sido creados.");
+  console.log("Todos los empleados han sido creados en la subcolección correcta.");
 }
 
 crearEmpleados().catch(console.error);
