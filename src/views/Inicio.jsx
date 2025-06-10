@@ -12,7 +12,28 @@ const Inicio = () => {
   return (
     <div className="inicio-container">
       <div className="inicio-imagen">Imagen</div>
-      <h1 className="inicio-title">Gestiona tu Distribuidora de forma Inteligente</h1>
+      <button
+        className="inicio-title boton-titulo"
+        onClick={() => handleNavigate("/gestion-productos")}
+        style={{
+          border: '2px solid #1a3557',
+          borderRadius: '10px',
+          padding: '16px',
+          fontSize: '2rem',
+          fontWeight: 'bold',
+          color: '#1a3557',
+          background: 'white',
+          cursor: 'pointer',
+          margin: '24px auto',
+          display: 'block',
+          width: 'fit-content',
+          transition: 'background 0.2s, color 0.2s',
+        }}
+        onMouseOver={e => e.currentTarget.style.background = '#e6f0ff'}
+        onMouseOut={e => e.currentTarget.style.background = 'white'}
+      >
+        Gestiona tu Distribuidora de forma Inteligente
+      </button>
       <div className="card-container">
         <div className="card">
           <h3>Gestión de Inventario</h3>
